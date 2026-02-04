@@ -1,0 +1,82 @@
+# Agentic Honeypot API
+# Docker ignore file - exclude unnecessary files from build
+
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Python
+__pycache__
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+venv/
+ENV/
+env/
+.venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+
+# Documentation
+docs/
+*.md
+!README.md
+
+# Development files
+.env
+.env.local
+.env.development
+*.log
+*.tmp
+
+# Agent/skill files (not needed in container)
+.agent/
+*.skill
+
+# Research files
+RESEARCH_*.md
+WEEK*_COMPLETE.md
+IMPLEMENTATION_ROADMAP.md
+QUICK_REFERENCE.md
+problem.md
+
+# Deployment scripts (not needed inside container)
+deploy.bat
+deploy.sh
+
+# Test files (optional - remove if you want tests in container)
+# tests/
+
+# Verification script
+verify_system.py

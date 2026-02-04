@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  honeypot-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: agentic-honeypot-api
+    ports:
+      - "8000:8000"
+    environment:
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY}
+      - API_KEY=${API_KEY}
+      - CALLBACK_ENDPOINT=${CALLBACK_ENDPOINT:-https://hackathon.guvi.in/api/updateHoneyPotFinalResult}
+      - ENVIRONMENT=production
+      - LOG_LEVEL=INFO
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8000/health" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 2G
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+    networks:
+      - honeypot-network
+  # Optional: Redis for session persistence (Week 4 bonus)
+  # redis:
+  #   image: redis:7-alpine
+  #   container_name: honeypot-redis
+  #   ports:
+  #     - "6379:6379"
+  #   volumes:
+  #     - redis-data:/data
+  #   networks:
+  #     - honeypot-network
+  #   restart: unless-stopped
+
+networks:
+  honeypot-network:
+    driver: bridge
+
+# volumes:
+#   redis-data:

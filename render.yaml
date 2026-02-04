@@ -1,0 +1,24 @@
+# Render.com deployment configuration
+# See: https://render.com/docs/yaml-spec
+
+services:
+  - type: web
+    name: agentic-honeypot-api
+    runtime: python
+    plan: starter
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.4
+      - key: GOOGLE_API_KEY
+        sync: false  # Set in Render dashboard
+      - key: API_KEY
+        sync: false  # Set in Render dashboard
+      - key: CALLBACK_ENDPOINT
+        value: https://hackathon.guvi.in/api/updateHoneyPotFinalResult
+      - key: ENVIRONMENT
+        value: production
+      - key: LOG_LEVEL
+        value: INFO
